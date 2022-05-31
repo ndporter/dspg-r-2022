@@ -25,7 +25,7 @@ source: Rmd
 
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
-knitr_fig_path("05-")
+knitr_fig_path("06-")
 ```
 
 At this point, you've seen it all: in the last lesson, we toured all the basic
@@ -237,11 +237,15 @@ cats
 ## Realistic example
 So far, you have seen the basics of manipulating data frames with our cat data;
 now let's use those skills to digest a more realistic dataset. Let's read in the
-`gapminder` dataset that we downloaded previously:
+`gapminder` dataset like we downloaded previously, but this time, we'll use the
+[readxl](https://cran.r-project.org/package=readxl) library
+to import an Excel version.
 
 ```{r}
-gapminder <- read.csv("data/gapminder_data.csv", stringsAsFactors = TRUE)
+gapminder <- read_excel("data/gapminder_data.xlsx")
 ```
+
+The `read_excel` function will automatically guess the format (xls or xlsx) and choose the first worksheet. Check the help file to see how to change these.
 
 > ## Miscellaneous Tips
 >
@@ -259,9 +263,6 @@ gapminder <- read.csv("data/gapminder_data.csv", stringsAsFactors = TRUE)
 > ```{r eval=FALSE, echo=TRUE}
 > gapminder <- read.csv("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv", stringsAsFactors = TRUE)
 > ```
->
-> * You can read directly from excel spreadsheets without
-> converting them to plain text first by using the [readxl](https://cran.r-project.org/package=readxl) package.
 {: .callout}
 
 Let's investigate gapminder a bit; the first thing we should always do is check
@@ -271,7 +272,14 @@ out what the data looks like with `str`:
 str(gapminder)
 ```
 
-An additional method for examining the structure of gapminder is to use the `summary` function. This function can be used on various objects in R. For data frames, `summary` yields a numeric, tabular, or descriptive summary of each column. Factor columns are summarized by the number of items in each level, numeric or integer columns by the descriptive statistics (quartiles and mean), and character columns by its length, class, and mode.  
+Unlike before, `country` and `continent` are character vectors. To treat them as factors, we need to either use the `col_types` option for `read_excel` or change them after creating the dataframe.
+
+```{r}
+gapminder$country <- factor(gapminder$country)
+gapminder$continent <- factor(gapminder$continent)
+```
+
+An additional method for examining the structure of gapminder is to use the `summary` function. This function can be used on various objects in R. For data frames, `summary` yields a numeric, tabular, or descriptive summary of each column. Factor columns are summarized by the number of items in each level, numeric or integer columns by the descriptive statistics (quartiles and mean), and character columns by its length, class, and mode.
 
 ```{r}
 summary(gapminder$country)
@@ -387,9 +395,13 @@ into a script file so we can come back to it later.
 > > Check out `?source` to find out more.
 > >
 > > ```{r eval = FALSE}
-> > download.file("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv", destfile = "data/gapminder_data.csv")
-> > gapminder <- read.csv(file = "data/gapminder_data.csv", stringsAsFactors = TRUE)
+> > library(readxl)
+> > gapminder <- read_excel(file = "data/gapminder_data.xlsx")
+> > gapminder$country <- factor(gapminder$country)
+> > gapminder$continent <- factor(gapminder$continent)
 > > ```
+> > Once the script is ready, save it in `scripts/` as `load-gapminder.R`.
+> > 
 > > To run the script and load the data into the `gapminder` variable:
 > > ```{r eval = FALSE}
 > > source(file = "scripts/load-gapminder.R")

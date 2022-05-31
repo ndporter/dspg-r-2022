@@ -19,7 +19,7 @@ source: Rmd
 
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
-knitr_fig_path("13-")
+knitr_fig_path("10-")
 # Silently load in the data so the rest of the lesson works
 gapminder <- read.csv("data/gapminder_data.csv", header=TRUE)
 ```
@@ -86,7 +86,7 @@ variables you select.
 year_country_gdp <- select(gapminder, year, country, gdpPercap)
 ```
 
-![Diagram illustrating use of select function to select two columns of a data frame](../fig/13-dplyr-fig1.png)
+![Diagram illustrating use of select function to select two columns of a data frame](../fig/10-dplyr-fig1.png)
 If we want to remove one column only from the `gapminder` data, for example,
 removing the `continent` column.
 ```{r}
@@ -187,7 +187,7 @@ You will notice that the structure of the data frame where we used `group_by()`
 `data.frame` which contains only the rows that correspond to the a particular
 value `continent` (at least in the example above).
 
-![Diagram illustrating how the group by function oraganizes a data frame into groups](../fig/13-dplyr-fig2.png)
+![Diagram illustrating how the group by function oraganizes a data frame into groups](../fig/10-dplyr-fig2.png)
 
 ## Using summarize()
 
@@ -204,7 +204,7 @@ gdp_bycontinents <- gapminder %>%
     summarize(mean_gdpPercap = mean(gdpPercap))
 ```
 
-![Diagram illustrating the use of group by and summarize together to create a new variable](../fig/13-dplyr-fig3.png)
+![Diagram illustrating the use of group by and summarize together to create a new variable](../fig/10-dplyr-fig3.png)
 
 ```{r,eval=FALSE}
 continent mean_gdpPercap
@@ -330,8 +330,35 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
 
 ## Connect mutate with logical filtering: ifelse
 
-When creating new variables, we can hook this with a logical condition. A simple combination of
-`mutate()` and `ifelse()` facilitates filtering right where it is needed: in the moment of creating something new.
+When creating new variables, we can hook this with a logical condition. 
+
+> ## Tip: Built in `ifelse()` function
+>
+> `R` accepts both `if()` and `else if()` statements structured as outlined above,
+> but also statements using `R`'s built-in `ifelse()` function. This
+> function accepts both singular and vector inputs and is structured as
+> follows:
+>
+> ```{r, eval = FALSE}
+> # ifelse function
+> ifelse(condition is true, perform action, perform alternative action)
+>
+> ```
+>
+> where the first argument is the condition or a set of conditions to be met, the
+> second argument is the statement that is evaluated when the condition is `TRUE`,
+> and the third statement  is the statement that is evaluated when the condition
+> is `FALSE`.
+>
+> ```{r}
+> y <- -3
+> ifelse(y < 0, "y is a negative number", "y is either positive or zero")
+>
+> ```
+{: .callout}
+
+A simple combination of `mutate()` and `ifelse()` facilitates filtering 
+right where it is needed: in the moment of creating something new.
 This easy-to-read statement is a fast and powerful way of discarding certain data (even though the overall dimension
 of the data frame will not change) or for updating values depending on this given condition.
 
@@ -359,11 +386,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 
 ## Combining `dplyr` and `ggplot2`
 
-First install and load ggplot2:
-
-```{r,eval=FALSE}
-install.packages('ggplot2')
-```
+First load `ggplot2`:
 
 ```{r,message=FALSE}
 library("ggplot2")

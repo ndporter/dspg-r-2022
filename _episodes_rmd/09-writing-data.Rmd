@@ -92,7 +92,9 @@ We can use the `write.table` function for this, which is
 very similar to `read.table` from before.
 
 Let's create a data-cleaning script, for this analysis, we
-only want to focus on the gapminder data for Australia:
+only want to focus on the gapminder data for Australia.
+Before creating the file, make sure you have a directory called
+`cleaned-data` (use `New Folder` in the `Files` pane). We separate these from the original datafiles to make it clear what is source data and what is working or modified data.
 
 ```{r}
 aust_subset <- gapminder[gapminder$country == "Australia",]
@@ -103,12 +105,9 @@ write.table(aust_subset,
 )
 ```
 
-Let's switch back to the shell to take a look at the data to make sure it looks
-OK:
+In the `Files` pane, navigate to `cleaned-data`, click on `gapminder-aus.csv` and choose `View File` to take a look at the data and make sure it looks OK:
 
-```{r, engine='bash'}
-head cleaned-data/gapminder-aus.csv
-```
+![RStudio View File for gapminder-aus.csv](../fig/09-gapminder-aus-quotes.png)
 
 Hmm, that's not quite what we wanted. Where did all these
 quotation marks come from? Also the row numbers are
@@ -135,11 +134,9 @@ write.table(
 )
 ```
 
-Now lets look at the data again using our shell skills:
+Now lets look at the data again using `View File`:
 
-```{r, engine='bash'}
-head cleaned-data/gapminder-aus.csv
-```
+![RStudio View File for gapminder-aus.csv (now fixed!)](../fig/09-gapminder-aus-fixed.png)
 
 That looks better!
 

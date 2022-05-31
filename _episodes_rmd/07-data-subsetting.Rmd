@@ -19,7 +19,7 @@ source: Rmd
 
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
-knitr_fig_path("06-")
+knitr_fig_path("07-")
 # Silently load in the data so the rest of the lesson works
 gapminder <- read.csv("data/gapminder_data.csv", header=TRUE)
 ```
@@ -30,7 +30,7 @@ easily perform complex operations on any kind of dataset.
 There are six different ways we can subset any kind of object, and three
 different subsetting operators for the different data structures.
 
-Let's start with the workhorse of R: a simple numeric vector.
+Let's start with the workhorses of R, simple numeric and character vectors.
 
 ```{r}
 x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
@@ -43,7 +43,7 @@ x
 > In R, simple vectors containing character strings, numbers, or logical values are called *atomic* vectors because they can't be further simplified.
 {: .callout}
 
-So now that we've created a dummy vector to play with, how do we get at its
+So now that we've created dummy vectors to play with, how do we get at their
 contents?
 
 ## Accessing elements using their indices
@@ -100,7 +100,7 @@ If we ask for the 0th element, we get an empty vector:
 x[0]
 ```
 
-> ## Vector numbering in R starts at 1
+> ## Tip: Vector numbering in R starts at 1
 >
 > In many programming languages (C and Python, for example), the first
 > element of a vector has an index of 0. In R, the first element is 1.
@@ -344,11 +344,11 @@ When you use `!=`, R tries to compare each element
 of the left argument with the corresponding element of its right
 argument. What happens when you compare vectors of different lengths?
 
-![Inequality testing](../fig/06-rmd-inequality.1.png)
+![Inequality testing](../fig/07-rmd-inequality.1.png)
 
 When one vector is shorter than the other, it gets *recycled*:
 
-![Inequality testing: results of recycling](../fig/06-rmd-inequality.2.png)
+![Inequality testing: results of recycling](../fig/07-rmd-inequality.2.png)
 
 In this case R **repeats** `c("a", "c")` as many times as necessary to match `names(x)`, i.e. we get `c("a","c","a","c","a")`. Since the recycled `"a"`
 doesn't match the third element of `names(x)`, the value of `!=` is `TRUE`.

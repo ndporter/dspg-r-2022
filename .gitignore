@@ -17,3 +17,4 @@ vendor/
 Gemfile.lock
 .*history
 dspg-r-2022.Rproj
+cleaned-data

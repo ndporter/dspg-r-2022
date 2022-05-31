@@ -18,30 +18,7 @@ source: Rmd
 
 ## Structure your project folder
 
-Keep your project folder structured, organized and tidy, by creating subfolders for your code files, manuals, data, binaries, output plots, etc. It can be done completely manually, or with the help of RStudio's `New Project` functionality, or a designated package, such as `ProjectTemplate`.
-
-> ## Tip: ProjectTemplate - a possible solution
->
-> One way to automate the management of projects is to install the third-party package, `ProjectTemplate`.
-> This package will set up an ideal directory structure for project management.
-> This is very useful as it enables you to have your analysis pipeline/workflow organised and structured.
-> Together with the default RStudio project functionality and Git you will be able to keep track of your
-> work as well as be able to share your work with collaborators.
->
-> 1. Install `ProjectTemplate`.
-> 2. Load the library
-> 3. Initialise the project:
->
-> ```{r, eval=FALSE}
-> install.packages("ProjectTemplate")
-> library("ProjectTemplate")
-> create.project("../my_project_2", merge.strategy = "allow.non.conflict")
-> ```
->
-> For more information on ProjectTemplate and its functionality visit the
-> home page [ProjectTemplate](http://projecttemplate.net/index.html)
-{: .callout}
-
+Keep your project folder structured, organized and tidy, by creating subfolders for your code files, manuals, data, binaries, output plots, etc. It can be done completely manually, or with the help of RStudio's `New Project` functionality, or a designated package, such as [`ProjectTemplate`](http://projecttemplate.net/index.html).
 
 ## Make code readable
 
@@ -95,3 +72,38 @@ for which a particular input always gives a particular output.
 
 Apply consistent style to your code.
 
+## Make regular commits with a single focus
+
+When using version control to track changes, it's much simpler to see what happened
+(and reverse it, if necessary) if you regularly add files and commit changes.
+Try to make each commit focused on a single goal or purpose - if you can't describe
+what you did in around 100 characters (the commit message), consider splitting it
+into multiple commits. This also helps discover dependency issues, where one change
+impacts other code, soon enough to find and resolve them quickly without searching
+dozens of updated files.
+
+You can commit changes locally and even push them to your branch of a project, even
+without merging them into the main project.
+
+## When collaborating, start and end clean
+
+Before starting work on a shared github project, it's usually best to pull the most
+recent version of the branch from the remote repository so you know you're working 
+with the most updated code from others. Otherwise, you may find your code works 
+with older version but not with the most recent versions.
+
+Likewise, when you finish a work session, you should always commit changes locally,
+and if you have a personal or shared `dev` branch, consider pushing the changes as
+well. Because you're not developing in the main branch, you can push changes
+without impacting anyone outside those actively working on your branch.
+
+## Use pull requests to merge clean updates into main projects
+
+When an update is clean and debugged, and you think it's ready to finalize, you can create a **pull request** on the `github` web interface and ask to merge changes
+from your branch into the main branch of the repository. 
+
+A large repository may have dozens of working development branches, with different
+people working on each. For collaborative projects, it is usually the responsibility
+of a small number of maintainers or coordinators to manage pull requests by
+verifying they won't have negative impact and either approving, rejecting, or asking
+for changes.
