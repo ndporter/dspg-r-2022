@@ -481,18 +481,16 @@ now let's use those skills to digest a more realistic dataset. Let's read in the
 [readxl](https://cran.r-project.org/package=readxl) library
 to import an Excel version.
 
+Use the searchbox in the `Packages` tab at the bottom right to check if `readxl`
+is installed. If not, click `Install` then search for `readxl` and install before
+loading the package.
+
 
 ~~~
+library(readxl)
 gapminder <- read_excel("data/gapminder_data.xlsx")
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in read_excel("data/gapminder_data.xlsx"): could not find function "read_excel"
-~~~
-{: .error}
 
 The `read_excel` function will automatically guess the format (xls or xlsx) and choose the first worksheet. Check the help file to see how to change these.
 
@@ -530,38 +528,24 @@ str(gapminder)
 
 
 ~~~
-Error in str(gapminder): object 'gapminder' not found
+tibble [1,704 × 6] (S3: tbl_df/tbl/data.frame)
+ $ country  : chr [1:1704] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
+ $ year     : num [1:1704] 1952 1957 1962 1967 1972 ...
+ $ pop      : num [1:1704] 8425333 9240934 10267083 11537966 13079460 ...
+ $ continent: chr [1:1704] "Asia" "Asia" "Asia" "Asia" ...
+ $ lifeExp  : num [1:1704] 28.8 30.3 32 34 36.1 ...
+ $ gdpPercap: num [1:1704] 779 821 853 836 740 ...
 ~~~
-{: .error}
+{: .output}
 
 Unlike before, `country` and `continent` are character vectors. To treat them as factors, we need to either use the `col_types` option for `read_excel` or change them after creating the dataframe.
 
 
 ~~~
 gapminder$country <- factor(gapminder$country)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in factor(gapminder$country): object 'gapminder' not found
-~~~
-{: .error}
-
-
-
-~~~
 gapminder$continent <- factor(gapminder$continent)
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in factor(gapminder$continent): object 'gapminder' not found
-~~~
-{: .error}
 
 An additional method for examining the structure of gapminder is to use the `summary` function. This function can be used on various objects in R. For data frames, `summary` yields a numeric, tabular, or descriptive summary of each column. Factor columns are summarized by the number of items in each level, numeric or integer columns by the descriptive statistics (quartiles and mean), and character columns by its length, class, and mode.
 
@@ -574,9 +558,76 @@ summary(gapminder$country)
 
 
 ~~~
-Error in summary(gapminder$country): object 'gapminder' not found
+             Afghanistan                  Albania                  Algeria 
+                      12                       12                       12 
+                  Angola                Argentina                Australia 
+                      12                       12                       12 
+                 Austria                  Bahrain               Bangladesh 
+                      12                       12                       12 
+                 Belgium                    Benin                  Bolivia 
+                      12                       12                       12 
+  Bosnia and Herzegovina                 Botswana                   Brazil 
+                      12                       12                       12 
+                Bulgaria             Burkina Faso                  Burundi 
+                      12                       12                       12 
+                Cambodia                 Cameroon                   Canada 
+                      12                       12                       12 
+Central African Republic                     Chad                    Chile 
+                      12                       12                       12 
+                   China                 Colombia                  Comoros 
+                      12                       12                       12 
+         Congo Dem. Rep.               Congo Rep.               Costa Rica 
+                      12                       12                       12 
+           Cote d'Ivoire                  Croatia                     Cuba 
+                      12                       12                       12 
+          Czech Republic                  Denmark                 Djibouti 
+                      12                       12                       12 
+      Dominican Republic                  Ecuador                    Egypt 
+                      12                       12                       12 
+             El Salvador        Equatorial Guinea                  Eritrea 
+                      12                       12                       12 
+                Ethiopia                  Finland                   France 
+                      12                       12                       12 
+                   Gabon                   Gambia                  Germany 
+                      12                       12                       12 
+                   Ghana                   Greece                Guatemala 
+                      12                       12                       12 
+                  Guinea            Guinea-Bissau                    Haiti 
+                      12                       12                       12 
+                Honduras          Hong Kong China                  Hungary 
+                      12                       12                       12 
+                 Iceland                    India                Indonesia 
+                      12                       12                       12 
+                    Iran                     Iraq                  Ireland 
+                      12                       12                       12 
+                  Israel                    Italy                  Jamaica 
+                      12                       12                       12 
+                   Japan                   Jordan                    Kenya 
+                      12                       12                       12 
+         Korea Dem. Rep.               Korea Rep.                   Kuwait 
+                      12                       12                       12 
+                 Lebanon                  Lesotho                  Liberia 
+                      12                       12                       12 
+                   Libya               Madagascar                   Malawi 
+                      12                       12                       12 
+                Malaysia                     Mali               Mauritania 
+                      12                       12                       12 
+               Mauritius                   Mexico                 Mongolia 
+                      12                       12                       12 
+              Montenegro                  Morocco               Mozambique 
+                      12                       12                       12 
+                 Myanmar                  Namibia                    Nepal 
+                      12                       12                       12 
+             Netherlands              New Zealand                Nicaragua 
+                      12                       12                       12 
+                   Niger                  Nigeria                   Norway 
+                      12                       12                       12 
+                    Oman                 Pakistan                   Panama 
+                      12                       12                       12 
+                 (Other) 
+                     516 
 ~~~
-{: .error}
+{: .output}
 
 Along with the `str` and `summary` functions, we can examine individual columns of the data frame with our `typeof` function:
 
@@ -589,9 +640,9 @@ typeof(gapminder$year)
 
 
 ~~~
-Error in typeof(gapminder$year): object 'gapminder' not found
+[1] "double"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -603,9 +654,9 @@ typeof(gapminder$country)
 
 
 ~~~
-Error in typeof(gapminder$country): object 'gapminder' not found
+[1] "integer"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -617,9 +668,9 @@ str(gapminder$country)
 
 
 ~~~
-Error in str(gapminder$country): object 'gapminder' not found
+ Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
 ~~~
-{: .error}
+{: .output}
 
 We can also interrogate the data frame for information about its dimensions;
 remembering that `str(gapminder)` said there were 1704 observations of 6
@@ -634,9 +685,9 @@ length(gapminder)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'gapminder' not found
+[1] 6
 ~~~
-{: .error}
+{: .output}
 
 A fair guess would have been to say that the length of a data frame would be the
 number of rows it has (1704), but this is not the case; remember, a data frame
@@ -651,9 +702,9 @@ typeof(gapminder)
 
 
 ~~~
-Error in typeof(gapminder): object 'gapminder' not found
+[1] "list"
 ~~~
-{: .error}
+{: .output}
 
 When `length` gave us 6, it's because gapminder is built out of a list of 6
 columns. To get the number of rows and columns in our dataset, try:
@@ -667,9 +718,9 @@ nrow(gapminder)
 
 
 ~~~
-Error in nrow(gapminder): object 'gapminder' not found
+[1] 1704
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -681,9 +732,9 @@ ncol(gapminder)
 
 
 ~~~
-Error in ncol(gapminder): object 'gapminder' not found
+[1] 6
 ~~~
-{: .error}
+{: .output}
 
 Or, both at once:
 
@@ -696,9 +747,9 @@ dim(gapminder)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'gapminder' not found
+[1] 1704    6
 ~~~
-{: .error}
+{: .output}
 
 We'll also likely want to know what the titles of all the columns are, so we can
 ask for them later:
@@ -712,9 +763,9 @@ colnames(gapminder)
 
 
 ~~~
-Error in is.data.frame(x): object 'gapminder' not found
+[1] "country"   "year"      "pop"       "continent" "lifeExp"   "gdpPercap"
 ~~~
-{: .error}
+{: .output}
 
 At this stage, it's important to ask ourselves if the structure R is reporting
 matches our intuition or expectations; do the basic data types reported for each
@@ -735,9 +786,17 @@ head(gapminder)
 
 
 ~~~
-Error in head(gapminder): object 'gapminder' not found
+# A tibble: 6 × 6
+  country      year      pop continent lifeExp gdpPercap
+  <fct>       <dbl>    <dbl> <fct>       <dbl>     <dbl>
+1 Afghanistan  1952  8425333 Asia         28.8      779.
+2 Afghanistan  1957  9240934 Asia         30.3      821.
+3 Afghanistan  1962 10267083 Asia         32.0      853.
+4 Afghanistan  1967 11537966 Asia         34.0      836.
+5 Afghanistan  1972 13079460 Asia         36.1      740.
+6 Afghanistan  1977 14880372 Asia         38.4      786.
 ~~~
-{: .error}
+{: .output}
 
 > ## Challenge 3
 >
@@ -755,9 +814,13 @@ Error in head(gapminder): object 'gapminder' not found
 > > {: .r}
 > >
 > > What about a few arbitrary rows just in case something is odd in the middle?
-> > ## Tip: There are several ways to achieve this.
+> >
+> > ## Tip: Sampling Random Rows
 > > The solution here presents one form of using nested functions, i.e. a function passed as an argument to another function. This might sound like a new concept, but you are already using it!
-> > Remember my_dataframe[rows, cols] will print to screen your data frame with the number of rows and columns you asked for (although you might have asked for a range or named columns for example). How would you get the last row if you don't know how many rows your data frame has? R has a function for this. What about getting a (pseudorandom) sample? R also has a function for this.
+> >
+> > Remember my_dataframe[rows, cols] will print to screen your data frame with the number of rows and columns you asked for (although you might have asked for a range or named columns for example). How would you get the last row if you don't know how many rows your data frame has? R has a function for this. 
+> >
+> > What about getting a (pseudorandom) sample? R also has a function for this.
 > > ~~~
 > > gapminder[sample(nrow(gapminder), 5), ]
 > > ~~~
