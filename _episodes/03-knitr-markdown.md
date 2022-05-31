@@ -105,13 +105,12 @@ needed if you want to include a colon in the title.
 RStudio creates the document with some example text to get you started.
 Note below that there are chunks like
 
-```{=html}
 <pre>
 &#96;&#96;&#96;{r}
 summary(cars)
 &#96;&#96;&#96;
 </pre>
-```
+
 These are chunks of R code that will be executed by `knitr` and replaced
 by their results. More on this later.
 
@@ -176,16 +175,38 @@ You *compile* the R Markdown document to an html webpage by clicking the
 
 > ## Challenge 1
 >
-> Create a new R Markdown document. Delete all of the R code chunks and
-> write a bit of Markdown (some sections, some italicized text, and an
-> itemized list).
+> Create a new R Markdown document. Delete all of the R code chunks
+> and write a bit of Markdown (some sections, some italicized
+> text, and an itemized list).
 >
-> Convert the document to a webpage. \> ## Solution to Challenge 1 \> \>
-> In RStudio, select File \> New file \> R Markdown... \> \> Delete the
-> placeholder text and add the following: \> \>
-> `> # Introduction >  > ## Background on Data >  > This report uses the *gapminder* dataset, which has columns that include: >  > * country > * continent > * year > * lifeExp > * pop > * gdpPercap >  > ## Background on Methods >  >`
-> \> \> Then click the 'Knit' button on the toolbar to generate an html
-> document (webpage). {: .solution} {: .challenge}
+> Convert the document to a webpage.
+> > ## Solution to Challenge 1
+> >
+> > In RStudio, select File > New file > R Markdown... 
+> > 
+> > Delete the placeholder text and add the following:
+> > 
+> > ```
+> > # Introduction
+> > 
+> > ## Background on Data
+> > 
+> > This report uses the *gapminder* dataset, which has columns that include:
+> > 
+> > * country
+> > * continent
+> > * year
+> > * lifeExp
+> > * pop
+> > * gdpPercap
+> > 
+> > ## Background on Methods
+> > 
+> > ```
+> > 
+> > Then click the 'Knit' button on the toolbar to generate an html document (webpage).
+> {: .solution}
+{: .challenge}
 
 ## A bit more Markdown
 
@@ -207,13 +228,12 @@ document.
 
 The main code chunks look like this:
 
-```{=html}
 <pre>
 &#96;&#96;&#96;{r load_data}
 gapminder <- read.csv("gapminder.csv")
 &#96;&#96;&#96;
 </pre>
-```
+
 That is, you place a chunk of R code between <code>\`\`\`{r
 chunk_name}</code> and <code>\`\`\`</code>. You should give each chunk a
 unique name, as they will help you to fix errors and, if any graphs are
@@ -231,21 +251,20 @@ Linux, or <kbd>Cmd</kbd>+<kbd>Option</kbd>+<kbd>I</kbd> on Mac.
 >
 > > ## Solution to Challenge 2
 > >
-> > ```{=html}
 > > <pre>
 > > &#96;&#96;&#96;{r read-gapminder-data}
 > > library(gapminder)
 > > &#96;&#96;&#96;
 > > </pre>
-> > ```
-> > ```{=html}
+> >
 > > <pre>
 > > &#96;&#96;&#96;{r make-plot}
 > > plot(lifeExp ~ year, data = gapminder)
 > > &#96;&#96;&#96;
 > > </pre>
-> > ```
-> > {: .solution} {: .challenge}
+> >
+> {: .solution}
+{: .challenge}
 
 ## How things get compiled
 
