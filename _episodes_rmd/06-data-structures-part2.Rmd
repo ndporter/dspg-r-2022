@@ -245,6 +245,8 @@ Use the searchbox in the `Packages` tab at the bottom right to check if `readxl`
 is installed. If not, click `Install` then search for `readxl` and install before
 loading the package.
 
+Finally, you will need to download the XLSX data from [this link](https://github.com/ndporter/dspg-r-2022/raw/gh-pages/data/gapminder_data.xlsx).
+
 ```{r}
 library(readxl)
 gapminder <- read_excel("data/gapminder_data.xlsx")
