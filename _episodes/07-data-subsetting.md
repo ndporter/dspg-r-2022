@@ -853,7 +853,7 @@ Levels: a b c d
 
 ## Matrix subsetting
 
-Matrices are also subsetted using the `[` function. In this case
+Matrices are also subsetted using the `[ ]` function. In this case
 it takes two arguments: the first applying to the rows, the second
 to its columns:
 
@@ -1232,34 +1232,6 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 > {: .solution}
 {: .challenge}
 
-
-> ## Challenge 6
-> Given a linear model:
->
-> 
-> ~~~
-> mod <- aov(pop ~ lifeExp, data=gapminder)
-> ~~~
-> {: .language-r}
->
-> Extract the residual degrees of freedom (hint: `attributes()` will help you)
->
-> > ## Solution to challenge 6
-> >
-> > 
-> > ~~~
-> > attributes(mod) ## `df.residual` is one of the names of `mod`
-> > ~~~
-> > {: .language-r}
-> > 
-> > ~~~
-> > mod$df.residual
-> > ~~~
-> > {: .language-r}
-> {: .solution}
-{: .challenge}
-
-
 ## Data frames
 
 Remember the data frames are lists underneath the hood, so similar rules
@@ -1355,7 +1327,7 @@ gapminder[3,]
 But for a single column the result will be a vector (this can
 be changed with the third argument, `drop = FALSE`).
 
-> ## Challenge 7
+> ## Challenge 6
 >
 > Fix each of the following common data frame subsetting errors:
 >
@@ -1401,7 +1373,7 @@ be changed with the third argument, `drop = FALSE`).
 >    ~~~
 >    {: .language-r}
 >
-> > ## Solution to challenge 7
+> > ## Solution to challenge 6
 > >
 > > Fix each of the following common data frame subsetting errors:
 > >
@@ -1455,7 +1427,7 @@ be changed with the third argument, `drop = FALSE`).
 > {: .solution}
 {: .challenge}
 
-> ## Challenge 8
+> ## Challenge 7
 >
 > 1. Why does `gapminder[1:20]` return an error? How does it differ from `gapminder[1:20, ]`?
 >
@@ -1463,7 +1435,7 @@ be changed with the third argument, `drop = FALSE`).
 > 2. Create a new `data.frame` called `gapminder_small` that only contains rows 1 through 9
 > and 19 through 23. You can do this in one or two steps.
 >
-> > ## Solution to challenge 8
+> > ## Solution to challenge 7
 > >
 > > 1.  `gapminder` is a data.frame so needs to be subsetted on two dimensions. `gapminder[1:20, ]` subsets the data to give the first 20 rows and all columns.
 > >
