@@ -20,7 +20,7 @@ keypoints:
 - "Use `na.omit()` to remove rows from a data frame with `NA` values."
 - "Use `levels()` and `as.character()` to explore and manipulate factors."
 - "Use `str()`, `summary()`, `nrow()`, `ncol()`, `dim()`, `colnames()`, `rownames()`, `head()`, and `typeof()` to understand the structure of a data frame."
-- "Read in a csv file using `read.csv()`."
+- "Read in an Excel file using read_excel()`."
 - "Understand what `length()` of a data frame represents."
 source: Rmd
 ---
@@ -484,6 +484,8 @@ to import an Excel version.
 Use the searchbox in the `Packages` tab at the bottom right to check if `readxl`
 is installed. If not, click `Install` then search for `readxl` and install before
 loading the package.
+
+Finally, you will need to download the XLSX data from [this link](https://github.com/ndporter/dspg-r-2022/raw/gh-pages/data/gapminder_data.xlsx).
 
 
 ~~~
