@@ -304,27 +304,30 @@ data frames. That is to say, using the `group_by()` function, we split our
 original data frame into multiple pieces, then we can run functions
 (e.g. `mean()` or `sd()`) within `summarize()`.
 
+![Diagram illustrating the use of group by and summarize together to create a new variable](../fig/10-dplyr-fig3.png)
+
 
 ~~~
 gdp_bycontinents <- gapminder %>%
     group_by(continent) %>%
     summarize(mean_gdpPercap = mean(gdpPercap))
+gdp_bycontinents
 ~~~
 {: .language-r}
 
-![Diagram illustrating the use of group by and summarize together to create a new variable](../fig/10-dplyr-fig3.png)
 
 
 ~~~
-continent mean_gdpPercap
-     <fctr>          <dbl>
-1    Africa       2193.755
-2  Americas       7136.110
-3      Asia       7902.150
-4    Europe      14469.476
-5   Oceania      18621.609
+# A tibble: 5 × 2
+  continent mean_gdpPercap
+  <chr>              <dbl>
+1 Africa             2194.
+2 Americas           7136.
+3 Asia               7902.
+4 Europe            14469.
+5 Oceania           18622.
 ~~~
-{: .language-r}
+{: .output}
 
 That allowed us to calculate the mean gdpPercap for each continent, but it gets
 even better.
@@ -437,6 +440,34 @@ gdp_bycontinents_byyear <- gapminder %>%
 ~~~
 {: .output}
 
+
+
+~~~
+gdp_bycontinents_byyear
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 60 × 3
+# Groups:   continent [5]
+   continent  year mean_gdpPercap
+   <chr>     <int>          <dbl>
+ 1 Africa     1952          1253.
+ 2 Africa     1957          1385.
+ 3 Africa     1962          1598.
+ 4 Africa     1967          2050.
+ 5 Africa     1972          2340.
+ 6 Africa     1977          2586.
+ 7 Africa     1982          2482.
+ 8 Africa     1987          2283.
+ 9 Africa     1992          2282.
+10 Africa     1997          2379.
+# … with 50 more rows
+~~~
+{: .output}
+
 That is already quite powerful, but it gets even better! You're not limited to defining 1 new variable in `summarize()`.
 
 
@@ -455,6 +486,34 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
 ~~~
 `summarise()` has grouped output by 'continent'. You can override using the
 `.groups` argument.
+~~~
+{: .output}
+
+
+
+~~~
+gdp_pop_bycontinents_byyear
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 60 × 6
+# Groups:   continent [5]
+   continent  year mean_gdpPercap sd_gdpPercap  mean_pop    sd_pop
+   <chr>     <int>          <dbl>        <dbl>     <dbl>     <dbl>
+ 1 Africa     1952          1253.         983.  4570010.  6317450.
+ 2 Africa     1957          1385.        1135.  5093033.  7076042.
+ 3 Africa     1962          1598.        1462.  5702247.  7957545.
+ 4 Africa     1967          2050.        2848.  6447875.  8985505.
+ 5 Africa     1972          2340.        3287.  7305376. 10130833.
+ 6 Africa     1977          2586.        4142.  8328097. 11585184.
+ 7 Africa     1982          2482.        3243.  9602857. 13456243.
+ 8 Africa     1987          2283.        2567. 11054502. 15277484.
+ 9 Africa     1992          2282.        2644. 12674645. 17562719.
+10 Africa     1997          2379.        2821. 14304480. 19873013.
+# … with 50 more rows
 ~~~
 {: .output}
 
@@ -567,13 +626,42 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
 ~~~
 {: .output}
 
-## Connect mutate with logical filtering: ifelse
+
+
+~~~
+gdp_pop_bycontinents_byyear
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 60 × 8
+# Groups:   continent [5]
+   continent  year mean_gdpPercap sd_gdpPercap  mean_pop sd_pop mean_gdp_billion
+   <chr>     <int>          <dbl>        <dbl>     <dbl>  <dbl>            <dbl>
+ 1 Africa     1952          1253.         983.  4570010. 6.32e6             5.99
+ 2 Africa     1957          1385.        1135.  5093033. 7.08e6             7.36
+ 3 Africa     1962          1598.        1462.  5702247. 7.96e6             8.78
+ 4 Africa     1967          2050.        2848.  6447875. 8.99e6            11.4 
+ 5 Africa     1972          2340.        3287.  7305376. 1.01e7            15.1 
+ 6 Africa     1977          2586.        4142.  8328097. 1.16e7            18.7 
+ 7 Africa     1982          2482.        3243.  9602857. 1.35e7            22.0 
+ 8 Africa     1987          2283.        2567. 11054502. 1.53e7            24.1 
+ 9 Africa     1992          2282.        2644. 12674645. 1.76e7            26.3 
+10 Africa     1997          2379.        2821. 14304480. 1.99e7            30.0 
+# … with 50 more rows, and 1 more variable: sd_gdp_billion <dbl>
+~~~
+{: .output}
+
+## Connect mutate with logical filtering: ifelse()
 
 When creating new variables, we can hook this with a logical condition. 
 
 > ## Tip: Built in `ifelse()` function
 >
-> `R` accepts both `if()` and `else if()` statements structured as outlined above,
+> `R` accepts both `if()` and `else if()` statements (see the 
+[Software Carpentry Control Flow lesson](https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/index.html) ),
 > but also statements using `R`'s built-in `ifelse()` function. This
 > function accepts both singular and vector inputs and is structured as
 > follows:
@@ -605,7 +693,7 @@ When creating new variables, we can hook this with a logical condition.
 > {: .output}
 {: .callout}
 
-A simple combination of `mutate()` and `ifelse()` facilitates filtering 
+A combination of `mutate()` and `ifelse()` facilitates filtering 
 right where it is needed: in the moment of creating something new.
 This easy-to-read statement is a fast and powerful way of discarding certain data (even though the overall dimension
 of the data frame will not change) or for updating values depending on this given condition.
@@ -637,6 +725,34 @@ gdp_pop_bycontinents_byyear_above25 <- gapminder %>%
 
 
 ~~~
+gdp_pop_bycontinents_byyear_above25
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 60 × 8
+# Groups:   continent [5]
+   continent  year mean_gdpPercap sd_gdpPercap  mean_pop sd_pop mean_gdp_billion
+   <chr>     <int>          <dbl>        <dbl>     <dbl>  <dbl>            <dbl>
+ 1 Africa     1952          1253.         983.  4570010. 6.32e6             5.99
+ 2 Africa     1957          1385.        1135.  5093033. 7.08e6             7.36
+ 3 Africa     1962          1598.        1462.  5702247. 7.96e6             8.78
+ 4 Africa     1967          2050.        2848.  6447875. 8.99e6            11.4 
+ 5 Africa     1972          2340.        3287.  7305376. 1.01e7            15.1 
+ 6 Africa     1977          2586.        4142.  8328097. 1.16e7            18.7 
+ 7 Africa     1982          2482.        3243.  9602857. 1.35e7            22.0 
+ 8 Africa     1987          2283.        2567. 11054502. 1.53e7            24.1 
+ 9 Africa     1992          2282.        2644. 12674645. 1.76e7            NA   
+10 Africa     1997          2379.        2821. 14304480. 1.99e7            30.0 
+# … with 50 more rows, and 1 more variable: sd_gdp_billion <dbl>
+~~~
+{: .output}
+
+
+
+~~~
 ## updating only if certain condition is fullfilled
 # for life expectations above 40 years, the gpd to be expected in the future is scaled
 gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
@@ -652,6 +768,34 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 ~~~
 `summarise()` has grouped output by 'continent'. You can override using the
 `.groups` argument.
+~~~
+{: .output}
+
+
+
+~~~
+gdp_future_bycontinents_byyear_high_lifeExp
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 60 × 4
+# Groups:   continent [5]
+   continent  year mean_gdpPercap mean_gdpPercap_expected
+   <chr>     <int>          <dbl>                   <dbl>
+ 1 Africa     1952          1253.                   1578.
+ 2 Africa     1957          1385.                   1803.
+ 3 Africa     1962          1598.                   2227.
+ 4 Africa     1967          2050.                   2953.
+ 5 Africa     1972          2340.                   3416.
+ 6 Africa     1977          2586.                   3830.
+ 7 Africa     1982          2482.                   3674.
+ 8 Africa     1987          2283.                   3401.
+ 9 Africa     1992          2282.                   3396.
+10 Africa     1997          2379.                   3557.
+# … with 50 more rows
 ~~~
 {: .output}
 
@@ -681,7 +825,7 @@ ggplot(data = americas, mapping = aes(x = year, y = lifeExp)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" width="612" style="display: block; margin: auto;" />
 
 This code makes the right plot but it also creates an intermediate variable
 (`americas`) that we might not have any other uses for. Just as we used
@@ -704,7 +848,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" width="612" style="display: block; margin: auto;" />
 
 More examples of using the function `mutate()` and the `ggplot2` package.
 
@@ -722,7 +866,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" width="612" style="display: block; margin: auto;" />
 
 > ## Advanced Challenge
 >

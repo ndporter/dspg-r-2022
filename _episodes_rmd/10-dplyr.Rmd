@@ -198,22 +198,13 @@ data frames. That is to say, using the `group_by()` function, we split our
 original data frame into multiple pieces, then we can run functions
 (e.g. `mean()` or `sd()`) within `summarize()`.
 
+![Diagram illustrating the use of group by and summarize together to create a new variable](../fig/10-dplyr-fig3.png)
+
 ```{r}
 gdp_bycontinents <- gapminder %>%
     group_by(continent) %>%
     summarize(mean_gdpPercap = mean(gdpPercap))
-```
-
-![Diagram illustrating the use of group by and summarize together to create a new variable](../fig/10-dplyr-fig3.png)
-
-```{r,eval=FALSE}
-continent mean_gdpPercap
-     <fctr>          <dbl>
-1    Africa       2193.755
-2  Americas       7136.110
-3      Asia       7902.150
-4    Europe      14469.476
-5   Oceania      18621.609
+gdp_bycontinents
 ```
 
 That allowed us to calculate the mean gdpPercap for each continent, but it gets
@@ -262,6 +253,7 @@ The function `group_by()` allows us to group by multiple variables. Let's group 
 gdp_bycontinents_byyear <- gapminder %>%
     group_by(continent, year) %>%
     summarize(mean_gdpPercap = mean(gdpPercap))
+gdp_bycontinents_byyear
 ```
 
 That is already quite powerful, but it gets even better! You're not limited to defining 1 new variable in `summarize()`.
@@ -273,6 +265,7 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
               sd_gdpPercap = sd(gdpPercap),
               mean_pop = mean(pop),
               sd_pop = sd(pop))
+gdp_pop_bycontinents_byyear
 ```
 
 ## count() and n()
@@ -326,15 +319,17 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
               sd_pop = sd(pop),
               mean_gdp_billion = mean(gdp_billion),
               sd_gdp_billion = sd(gdp_billion))
+gdp_pop_bycontinents_byyear
 ```
 
-## Connect mutate with logical filtering: ifelse
+## Connect mutate with logical filtering: ifelse()
 
 When creating new variables, we can hook this with a logical condition. 
 
 > ## Tip: Built in `ifelse()` function
 >
-> `R` accepts both `if()` and `else if()` statements structured as outlined above,
+> `R` accepts both `if()` and `else if()` statements (see the 
+[Software Carpentry Control Flow lesson](https://swcarpentry.github.io/r-novice-gapminder/07-control-flow/index.html) ),
 > but also statements using `R`'s built-in `ifelse()` function. This
 > function accepts both singular and vector inputs and is structured as
 > follows:
@@ -357,7 +352,7 @@ When creating new variables, we can hook this with a logical condition.
 > ```
 {: .callout}
 
-A simple combination of `mutate()` and `ifelse()` facilitates filtering 
+A combination of `mutate()` and `ifelse()` facilitates filtering 
 right where it is needed: in the moment of creating something new.
 This easy-to-read statement is a fast and powerful way of discarding certain data (even though the overall dimension
 of the data frame will not change) or for updating values depending on this given condition.
@@ -374,6 +369,7 @@ gdp_pop_bycontinents_byyear_above25 <- gapminder %>%
               sd_pop = sd(pop),
               mean_gdp_billion = mean(gdp_billion),
               sd_gdp_billion = sd(gdp_billion))
+gdp_pop_bycontinents_byyear_above25
 
 ## updating only if certain condition is fullfilled
 # for life expectations above 40 years, the gpd to be expected in the future is scaled
@@ -382,6 +378,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
     group_by(continent, year) %>%
     summarize(mean_gdpPercap = mean(gdpPercap),
               mean_gdpPercap_expected = mean(gdp_futureExpectation))
+gdp_future_bycontinents_byyear_high_lifeExp
 ```
 
 ## Combining `dplyr` and `ggplot2`
