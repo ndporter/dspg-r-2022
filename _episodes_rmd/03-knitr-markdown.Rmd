@@ -20,7 +20,7 @@ source: Rmd
 
 ```{r chunk_options, include=FALSE}
 source("../bin/chunk-options.R")
-knitr_fig_path("15-")
+knitr_fig_path("03-")
 ```
 
 
@@ -73,7 +73,7 @@ pages.
 Within RStudio, click File &rarr; New File &rarr; R Markdown and
 you'll get a dialog box like this:
 
-![Screenshot of the New R Markdown file dialogue box in RStudio](../fig/New_R_Markdown.png)
+![Screenshot of the New R Markdown file dialogue box in RStudio](../fig/03-New_R_Markdown.png)
 
 You can stick with the default (HTML output), but give it a title.
 
@@ -219,16 +219,8 @@ You can make a hyperlink like this:
 
 You can include an image file like this: `![The Carpentries Logo](https://carpentries.org/assets/img/TheCarpentries.svg)`
 
-You can do subscripts (e.g., F~2~) with `F~2~` and superscripts (e.g.,
-F^2^) with `F^2^`.
-
-If you know how to write equations in
-[LaTeX](http://www.latex-project.org/), you can use `$ $` and `$$ $$` to insert math equations, like
-`$E = mc^2$` and
-
-```
-$$y = \mu + \sum_{i=1}^p \beta_i x_i + \epsilon$$
-```
+You can do subscripts (e.g., `r `F~2~`) with `F~2~` and superscripts (e.g.,
+`r F^2^`) with `F^2^`.
 
 You can review Markdown syntax by navigating to the
 "Markdown Quick Reference" under the "Help" field in the 
@@ -260,21 +252,14 @@ produced them. You can create code chunks quickly in RStudio using the shortcuts
 >
 > Add code chunks to:
 >
-> * Load the ggplot2 package
-> * Read the gapminder data
+> * Load the gapminder library
 > * Create a plot
 > 
 > > ## Solution to Challenge 2
 > > 
 > > <pre>
-> > &#96;&#96;&#96;{r load-ggplot2}
-> > library("ggplot2")
-> > &#96;&#96;&#96;
-> > </pre>
-> > 
-> > <pre>
 > > &#96;&#96;&#96;{r read-gapminder-data}
-> > gapminder <- read.csv("gapminder.csv")
+> > library(gapminder)
 > > &#96;&#96;&#96;
 > > </pre>
 > > 
@@ -331,105 +316,6 @@ text((22+38)/2, 60, "knitr", col="darkslateblue", cex=1.3)
 arrows(62, 50, 78, 50, lwd=2, col="slateblue", len=0.1)
 text((62+78)/2, 60, "pandoc", col="darkslateblue", cex=1.3)
 ```
-
-
-
-
-## Chunk options
-
-There are a variety of options to affect how the code chunks are
-treated. Here are some examples:
-
-- Use `echo=FALSE` to avoid having the code itself shown.
-- Use `results="hide"` to avoid having any results printed.
-- Use `eval=FALSE` to have the code shown but not evaluated.
-- Use `warning=FALSE` and `message=FALSE` to hide any warnings or
-  messages produced.
-- Use `fig.height` and `fig.width` to control the size of the figures
-  produced (in inches).
-
-So you might write:
-
-<pre>
-&#96;&#96;&#96;{r load_libraries, echo=FALSE, message=FALSE}
-library("dplyr")
-library("ggplot2")
-&#96;&#96;&#96;
-</pre>
-
-Often there will be particular options that you'll want to use
-repeatedly; for this, you can set _global_ chunk options, like so:
-
-<pre>
-&#96;&#96;&#96;{r global_options, echo=FALSE}
-knitr::opts_chunk$set(fig.path="Figs/", message=FALSE, warning=FALSE,
-                      echo=FALSE, results="hide", fig.width=11)
-&#96;&#96;&#96;
-</pre>
-
-The `fig.path` option defines where the figures will be saved. The `/`
-here is really important; without it, the figures would be saved in
-the standard place but just with names that begin with `Figs`.
-
-If you have multiple R Markdown files in a common directory, you might
-want to use `fig.path` to define separate prefixes for the figure file
-names, like `fig.path="Figs/cleaning-"` and `fig.path="Figs/analysis-"`.
-
-
-> ## Challenge 3
->
-> Use chunk options to control the size of a figure and to hide the
-> code.
-> 
-> > ## Solution to Challenge 3
-> > 
-> > <pre>
-> > &#96;&#96;&#96;{r echo = FALSE, fig.width = 3}
-> > plot(faithful)
-> > &#96;&#96;&#96;
-> > </pre>
-> > 
-> {: .solution}
-{: .challenge}
-
-You can review all of the `R` chunk options by navigating to
-the "R Markdown Cheat Sheet" under the "Cheatsheets" section 
-of the "Help" field in the toolbar at the top of RStudio.
-
-
-## Inline R code
-
-You can make _every_ number in your report reproducible. Use
-<code>&#96;r</code> and <code>&#96;</code> for an in-line code chunk,
-like so: <code>&#96;r round(some_value, 2)&#96;</code>. The code will be
-executed and replaced with the _value_ of the result.
-
-Don't let these in-line chunks get split across lines.
-
-Perhaps precede the paragraph with a larger code chunk that does
-calculations and defines variables, with `include=FALSE` for that larger
-chunk (which is the same as `echo=FALSE` and `results="hide"`).
-
-Rounding can produce differences in output in such situations. You may want
-`2.0`, but `round(2.03, 1)` will give just `2`.
-
-The
-[`myround`](https://github.com/kbroman/broman/blob/master/R/myround.R)
-function in the [R/broman](https://github.com/kbroman/broman) package handles
-this.
-
-> ## Challenge 4
->
-> Try out a bit of in-line R code.
-> 
-> > ## Solution to Challenge 4
-> > 
-> > Here's some inline code to determine that 2 + 2 = `` `r
-> > 2+2` ``.
-> > 
-> {: .solution}
-{: .challenge}
-
 
 ## Other output options
 

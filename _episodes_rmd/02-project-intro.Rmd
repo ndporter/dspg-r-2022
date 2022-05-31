@@ -34,7 +34,7 @@ eventually everything is a bit mixed together.
 
 Most people tend to organize their projects like this:
 
-![Screenshot of file manager demonstrating bad project organisation](../fig/bad_layout.png)
+![Screenshot of file manager demonstrating bad project organisation](../fig/02-bad_layout.png)
 
 There are many reasons why we should *ALWAYS* avoid this:
 
@@ -207,7 +207,7 @@ In the RStudio `Files` pane (bottom right), use `New Folder` to create these dir
 `doc`, `data`, `results`, `src`, and `bin`. All should be visible from the main project directory.
 Your RStudio desktop should resemble the image below:
 
-![Screenshot of RStudio project on dev branch with new folders](../fig/rstudio-project-folders.png)
+![Screenshot of RStudio project on dev branch with new folders](../fig/02-rstudio-project-folders.png)
 
 ### Separate function definition and application
 

@@ -19,7 +19,7 @@ source: Rmd
 
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
-knitr_fig_path("04-")
+knitr_fig_path("05-")
 
 ## Save the data
 cats_orig <- data.frame(coat = factor(c("calico", "black", "tabby")),
@@ -122,8 +122,7 @@ No matter how
 complicated our analyses become, all data in R is interpreted as one of these
 basic data types. This strictness has some really important consequences.
 
-A user has added details of another cat. This information is in the file
-`data/feline-data_v2.csv`.
+A user has added details of another cat. Download [this file](https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/_episodes_rmd/data/feline-data_v2.csv) into your data directory as `data/feline-data_v2.csv`.
 
 
 ```{r, eval=FALSE}
